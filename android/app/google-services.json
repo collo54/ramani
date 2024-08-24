@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "459876047401",
+    "project_id": "rideramani-ba3ff",
+    "storage_bucket": "rideramani-ba3ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459876047401:android:4ae9370b8ad13993a55a38",
+        "android_client_info": {
+          "package_name": "com.ramaniride.ap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB45g-778tRJf3buOeHrpztGOW4mPr3kNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459876047401:android:6ec7e54ce4961fc9a55a38",
+        "android_client_info": {
+          "package_name": "com.ramaniride.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB45g-778tRJf3buOeHrpztGOW4mPr3kNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
