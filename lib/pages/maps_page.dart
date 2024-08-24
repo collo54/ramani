@@ -6,15 +6,15 @@ import '../painters/notebook_painter.dart';
 import '../providers/providers.dart';
 
 class MapsPage extends ConsumerWidget {
-  const MapsPage({super.key});
+  MapsPage({super.key});
 
-  // late GoogleMapController mapController;
+  late GoogleMapController mapController;
 
-  // final LatLng _center = const LatLng(45.521563, -122.677433);
+  final LatLng _center = const LatLng(-37.8136, 144.9631);
 
-  // void _onMapCreated(GoogleMapController controller) {
-  //   mapController = controller;
-  // }
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,14 +29,13 @@ class MapsPage extends ConsumerWidget {
         child: CustomPaint(
           size: const Size(double.infinity, double.infinity),
           painter: NotebookPagePainter(),
-          // child: GoogleMap(
-          //   onMapCreated: (controller) {}, //TODO //_onMapCreated,
-          //   initialCameraPosition: const CameraPosition(
-          //     target: LatLng(37.42796133580664,
-          //         144.8941511259155), //TODO  initial location
-          //     zoom: 11.0,
-          //   ),
-          // ),
+          child: GoogleMap(
+            onMapCreated: _onMapCreated,
+            initialCameraPosition: CameraPosition(
+              target: _center, //TODO  initial location
+              zoom: 11.0,
+            ),
+          ),
         ),
       ),
     );

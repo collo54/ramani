@@ -22,11 +22,12 @@ class HomeScaffold extends ConsumerWidget {
       length: 3,
       initialIndex: currentTab,
       child: Scaffold(
-        body: const TabBarView(
+        body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: [
-            HomePage(),
             MapsPage(),
+            HomePage(),
+            
             CheckoutPage(),
           ],
         ),
