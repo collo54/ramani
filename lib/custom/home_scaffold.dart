@@ -27,7 +27,6 @@ class HomeScaffold extends ConsumerWidget {
           children: [
             MapsPage(),
             HomePage(),
-            
             CheckoutPage(),
           ],
         ),
@@ -44,21 +43,21 @@ class HomeScaffold extends ConsumerWidget {
             tabs: [
               Tab(
                 icon: HugeIcon(
-                  icon: HugeIcons.strokeRoundedHome01,
+                  icon: HugeIcons.strokeRoundedMapsLocation02,
                   color: currentTab == 0 ? kblue12915824210 : kblack00005,
                   size: 24.0,
                 ),
               ),
               Tab(
                 icon: HugeIcon(
-                  icon: HugeIcons.strokeRoundedMapsLocation02,
+                  icon: HugeIcons.strokeRoundedSearchArea,
                   color: currentTab == 1 ? kblue12915824210 : kblack00005,
                   size: 24.0,
                 ),
               ),
               Tab(
                 icon: HugeIcon(
-                  icon: HugeIcons.strokeRoundedPaymentSuccess01,
+                  icon: HugeIcons.strokeRoundedPayment02,
                   color: currentTab == 2 ? kblue12915824210 : kblack00005,
                   size: 24.0,
                 ),
