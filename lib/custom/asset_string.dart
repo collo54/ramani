@@ -30,6 +30,7 @@ class MarkersAssets {
 
   Future<Set<Marker>> customMarkers(
     BuildContext context,
+    LatLng center,
   ) async {
     var listMarker = <Marker>{};
     for (String pngString in customPngString) {

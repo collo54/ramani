@@ -40,18 +40,24 @@ class MapsPage extends ConsumerWidget {
                 markers: markers,
                 initialCameraPosition: CameraPosition(
                   target: _center, //TODO  initial location
-                  zoom: 11.0,
+                  zoom: 4.0,
+                  tilt : 0.7,
                 ),
               ),
             ),
           ),
-          Positioned( left: 10,bottom: 10,
+          Positioned(
+            left: 10,
+            bottom: 10,
             child: FloatingActionButton(
               foregroundColor: kblack15161810,
               backgroundColor: kwhite25525525510,
               onPressed: () async {
                 final assetMarkers = MarkersAssets();
-                await assetMarkers.customMarkers(context).then((value) {
+                const latlngHolder = LatLng(-37.8136 - 0.5, 144.9631 - 0.5); //TODO dynamic latlng
+                await assetMarkers
+                    .customMarkers(context, latlngHolder)
+                    .then((value) {
                   ref.read(markerProvider.notifier).replaceSet(value);
                 });
               },
