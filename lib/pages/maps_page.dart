@@ -37,11 +37,13 @@ class MapsPage extends ConsumerWidget {
               painter: NotebookPagePainter(),
               child: GoogleMap(
                 onMapCreated: _onMapCreated,
+                myLocationButtonEnabled: true,
+                myLocationEnabled: true,
                 markers: markers,
                 initialCameraPosition: CameraPosition(
                   target: _center, //TODO  initial location
-                  zoom: 4.0,
-                  tilt : 0.7,
+                  zoom: 18.0,
+                  tilt: 20.0,
                 ),
               ),
             ),
@@ -54,7 +56,8 @@ class MapsPage extends ConsumerWidget {
               backgroundColor: kwhite25525525510,
               onPressed: () async {
                 final assetMarkers = MarkersAssets();
-                const latlngHolder = LatLng(-37.8136 - 0.5, 144.9631 - 0.5); //TODO dynamic latlng
+                const latlngHolder = LatLng(
+                    -37.8136 - 0.5, 144.9631 - 0.5); //TODO dynamic latlng
                 await assetMarkers
                     .customMarkers(context, latlngHolder)
                     .then((value) {

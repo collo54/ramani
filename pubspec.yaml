@@ -49,6 +49,7 @@ dependencies:
   #google_generative_ai: ^0.4.4
   uuid: ^4.4.2
   google_maps_flutter: ^2.9.0  
+  location: ^7.0.0
 
 dev_dependencies:
   flutter_test:
