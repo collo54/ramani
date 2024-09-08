@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:459876047401:android:4b04dde906015b21a55a38",
+        "android_client_info": {
+          "package_name": "com.ramaniride"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB45g-778tRJf3buOeHrpztGOW4mPr3kNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:459876047401:android:4ae9370b8ad13993a55a38",
         "android_client_info": {
           "package_name": "com.ramaniride.ap"
