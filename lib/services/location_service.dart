@@ -1,35 +1,58 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:location/location.dart';
+import 'package:ramanirides/constants/colors.dart';
 
 class LocationService {
-  Location location =  Location();
+  Location location = Location();
 
-  Future<bool> _checkPermission() async {
+  Future<bool> checkPermission() async {
     bool serviceEnabled;
     PermissionStatus permissionGranted;
 
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
+    try {
+      serviceEnabled = await location.serviceEnabled();
       if (!serviceEnabled) {
-        return false;
+        serviceEnabled = await location.requestService();
+        if (!serviceEnabled) {
+          return false;
+        }
       }
-    }
 
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return false;
+      permissionGranted = await location.hasPermission();
+      if (permissionGranted == PermissionStatus.denied) {
+        permissionGranted = await location.requestPermission();
+        if (permissionGranted != PermissionStatus.granted) {
+          return false;
+        }
       }
+    } on Exception catch (e) {
+      Fluttertoast.showToast(
+          msg: "LocationService class _checkPermission method Exception: $e",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: kred236575710,
+          textColor: kwhite25525525510,
+          fontSize: 16.0);
     }
     return true;
   }
 
   Future<LocationData?> getLocation() async {
-    if (await _checkPermission()) {
-      return await location.getLocation();
-    } else {
-      return null;
+    try {
+      if (await checkPermission()) {
+        return await location.getLocation();
+      }
+    } on Exception catch (e) {
+      Fluttertoast.showToast(
+          msg: "LocationService class _getLocation method Exception: $e",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: kred236575710,
+          textColor: kwhite25525525510,
+          fontSize: 16.0);
     }
+    return null;
   }
 }

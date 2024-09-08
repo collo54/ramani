@@ -17,7 +17,7 @@ class MapsPage extends ConsumerWidget {
 
   final LatLng _center = const LatLng(-37.8136, 144.9631);
 
-  void _onMapCreated(GoogleMapController controller) {
+  void _onMapCreated(GoogleMapController controller,)async {
     mapController = controller;
   }
 
@@ -83,9 +83,8 @@ class MapsPage extends ConsumerWidget {
                   context: context,
                   builder: (context) => IconMarkers(
                       iconList: MarkersAssets().customPngString,
-                      onTap: () async =>
-                          await currentLocationCustomMarker(ref, context)),
-                );
+                    
+                ),);
               },
               child: const HugeIcon(
                 color: kpurple1215720310,
@@ -116,7 +115,7 @@ class MapsPage extends ConsumerWidget {
         ref.read(markerProvider.notifier).addMarkerSet(value);
       });
     } else {
-      var latlngHolder = const LatLng(-37.8136, 144.9631);
+      
     }
   }
 }
