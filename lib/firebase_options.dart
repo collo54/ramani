@@ -66,4 +66,5 @@ class DefaultFirebaseOptions {
     projectId: 'rideramani-ba3ff',
     storageBucket: 'rideramani-ba3ff.appspot.com',
   );
+
 }
