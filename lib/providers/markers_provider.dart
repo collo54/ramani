@@ -14,6 +14,11 @@ class MarkersProvider extends Notifier<Set<Marker>> {
     debugPrint('current Marker Set:$state');
   }
 
+  void addMarkerSet(Set<Marker> markerSet) {
+    state = {...state, ...markerSet};
+    debugPrint('current Marker Set:$state');
+  }
+
   void currentMarker(Marker index) {
     state = {...state, index};
     debugPrint('current Marker Set Indexes:$state');

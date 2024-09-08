@@ -28,7 +28,7 @@ class MarkersAssets {
     const LatLng(-37.8136 - 0.5, 144.9631 - 0.5),
   ];
 
-  Future<Set<Marker>> customMarkers(
+  Future<Set<Marker>> customMarkersTest(
     BuildContext context,
     LatLng center,
   ) async {
@@ -45,6 +45,27 @@ class MarkersAssets {
       );
       listMarker.add(marker);
     }
+    return listMarker;
+  }
+
+  Future<Set<Marker>> singleCustomMarkers({
+    required BuildContext context,
+    required LatLng center,
+    required String pngString,
+  }) async {
+    var listMarker = <Marker>{};
+
+    ImageConfiguration imageConfiguration =
+        createLocalImageConfiguration(context); // ImageConfiguration();
+    BitmapDescriptor bitmapDescriptor =
+        await BitmapDescriptor.asset(imageConfiguration, pngString);
+    Marker marker = Marker(
+      markerId: MarkerId(pngString),
+      position: center,
+      icon: bitmapDescriptor,
+    );
+    listMarker.add(marker);
+
     return listMarker;
   }
 
