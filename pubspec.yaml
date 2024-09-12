@@ -50,6 +50,7 @@ dependencies:
   uuid: ^4.4.2
   google_maps_flutter: ^2.9.0  
   location: ^7.0.0
+  webview_flutter: ^4.2.4
 
 dev_dependencies:
   flutter_test:
