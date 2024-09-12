@@ -36,12 +36,14 @@ class AuthState extends ConsumerWidget {
           var isPermissionGranted = await locationService.checkPermission();
           if (isPermissionGranted) {
             final locationData = await locationService.getLocation();
-            if (locationData == null) {
+            if (locationData != null) {
               var latlngHolder = LatLng(
-                locationData?.latitude ?? -37.8136,
-                locationData?.longitude ?? 144.9631,
+                locationData.latitude ?? -37.8136,
+                locationData.longitude ?? 144.9631,
               );
-               ref.read(currentLocationProvider.notifier).updateLatLng(latlngHolder);
+              ref
+                  .read(currentLocationProvider.notifier)
+                  .updateLatLng(latlngHolder);
             }
           }
         });

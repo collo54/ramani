@@ -1,9 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 import '../constants/colors.dart';
 import '../models/user_model.dart';
+import '../pages/webview_page.dart';
 import '../services/auth_service.dart';
 
 enum EmailSignInFormType { signIn, register }
@@ -21,12 +24,14 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
   final _formKey = GlobalKey<FormState>();
   String? _email;
   String? _password;
+  late TapGestureRecognizer _onTapRecognizer;
   // late GoogleMapController mapController;
   // late String _mapStyle;
 
   @override
   void initState() {
     super.initState();
+    _onTapRecognizer = TapGestureRecognizer()..onTap = _handlePress;
     // SchedulerBinding.instance.addPostFrameCallback((_) {
     //   rootBundle.loadString('assets/style/map_style_dark.txt').then((string) {
     //     _mapStyle = string;
@@ -34,6 +39,11 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
     //  });
   }
 
+  @override
+  void dispose() {
+    _onTapRecognizer.dispose();
+    super.dispose();
+  }
   // final LatLng _center =
   //     const LatLng(-1.2921, 36.8219); // const LatLng(-33.86, 151.20);
 
@@ -122,7 +132,7 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
           Center(
             child: Container(
               // width: size.width / 3,
-              // height: size.height - 40,
+              height: (size.height / 4 * 3) + 90,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(5),
@@ -133,12 +143,14 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
               ),
 
               padding: const EdgeInsets.all(5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisSize: MainAxisSize.min,
+              child: ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisSize: MainAxisSize.max,
                 children: [
                   const SizedBox(
-                    height: 25,
+                    height: 15,
                   ),
                   Text(
                     'RamaniRide',
@@ -151,7 +163,7 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 8,
                   ),
                   Text(
                     'Ready to go',
@@ -165,7 +177,7 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   OutlinedButton(
                     onPressed: () async {
@@ -208,7 +220,7 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -248,14 +260,14 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
                     ],
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   SizedBox(
                     width: 248,
                     child: _buildForm(),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   MaterialButton(
                     onPressed: () async {
@@ -281,12 +293,23 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 12,
                   ),
                   TextButton(
                     onPressed: () async {
                       _toogleFormType();
                     },
+                    style: TextButton.styleFrom(
+                      foregroundColor: kblue9813424010,
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      side: const BorderSide(
+                        color: kblue9813424010,
+                        width: 2,
+                      ),
+                    ),
                     child: Text(
                       secondaryText,
                       style: GoogleFonts.inter(
@@ -298,11 +321,76 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'By tapping "log in" you accept our ',
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          color: kblack00005,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'privacy policy',
+                          recognizer: _onTapRecognizer,
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              color: kblue12915824210,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        /*
+                          TextSpan(
+                            text: '\nand',
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                color: kblackgrey48484810,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          TextSpan(
+                            text: ' conditions ',
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                color: kpurple1215720310,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          */
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                 ],
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _handlePress() {
+    HapticFeedback.vibrate();
+    Navigator.of(context, rootNavigator: true).push(
+      MaterialPageRoute(
+        builder: (context) => const WebViewApp(
+          uri:
+              'https://www.termsfeed.com/live/c66bd66c-27c1-468b-9ed2-d3543d3370a9',
+        ),
       ),
     );
   }
@@ -330,7 +418,7 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
         ),
       ),
       const SizedBox(
-        height: 20,
+        height: 10,
       ),
       TextFormField(
         validator: (value) {
@@ -400,7 +488,7 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
         textAlign: TextAlign.start,
       ),
       const SizedBox(
-        height: 30,
+        height: 15,
       ),
       Text(
         'Password',
@@ -413,7 +501,7 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
         ),
       ),
       const SizedBox(
-        height: 20,
+        height: 10,
       ),
       TextFormField(
         validator: (value) {

@@ -39,11 +39,24 @@ class MapsPage extends ConsumerWidget {
           style: GoogleFonts.poppins(
             textStyle: const TextStyle(
               color: kblack00008,
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.w400,
             ),
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final auth = ref.read(authenticate);
+              await auth.signOut();
+            },
+            icon: const HugeIcon(
+              icon: HugeIcons.strokeRoundedLogout01,
+              color: kblack00008,
+              size: 24.0,
+            ),
+          ),
+        ],
       ),
       body: SizedBox(
         width: size.width,
