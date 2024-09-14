@@ -13,7 +13,7 @@ class LocationDisclosureDialog extends ConsumerWidget {
     return AlertDialog(
       title: const Text('Background Location Disclosure'),
       content: const Text(
-          'The RamaniRide app collects background location data to sync with nearby custom user markers. This allows us to provide you with updates on the status of nearby custom markers and prompt you for relevant actions. Such as a fallen tree marker on a hike trail could prompt other users within its proximity to be cautious or prompt to show hike trail is clear.'),
+          'The RamaniRide app collects background location data even when the app is closed or not in use to sync with nearby custom user markers. This allows us to provide you with updates on the status of nearby custom markers and prompt you for relevant actions. Such as a fallen tree marker on a hike trail could prompt other users within its proximity to be cautious or prompt to show hike trail is clear.'),
       actions: <Widget>[
         TextButton(
           onPressed: () {
