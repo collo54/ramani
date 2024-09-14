@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:ramanirides/widgets/location_disclosure_dialog.dart';
 
 import '../constants/colors.dart';
 import '../models/user_model.dart';
@@ -11,14 +13,15 @@ import '../services/auth_service.dart';
 
 enum EmailSignInFormType { signIn, register }
 
-class LoginMobileLayout extends StatefulWidget {
-  const LoginMobileLayout({super.key});
+class LoginMobileLayout extends ConsumerStatefulWidget {
+  LoginMobileLayout({required this.currentScaffold, super.key});
+  GlobalKey<ScaffoldState> currentScaffold;
 
   @override
-  State<LoginMobileLayout> createState() => _LoginMobileLayoutState();
+  ConsumerState<LoginMobileLayout> createState() => _LoginMobileLayoutState();
 }
 
-class _LoginMobileLayoutState extends State<LoginMobileLayout> {
+class _LoginMobileLayoutState extends ConsumerState<LoginMobileLayout> {
   final _auth = AuthService();
   EmailSignInFormType _formType = EmailSignInFormType.register;
   final _formKey = GlobalKey<FormState>();
@@ -37,7 +40,20 @@ class _LoginMobileLayoutState extends State<LoginMobileLayout> {
     //     _mapStyle = string;
     //   });
     //  });
+   
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+                  widget.currentScaffold.currentState!.showBodyScrim(true, 0.6);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+            widget.currentScaffold.currentState!.showBodyScrim(true, 0.6);
+          return const LocationDisclosureDialog();
+        },
+      );
+    });
   }
+
+
 
   @override
   void dispose() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ramanirides/providers/providers.dart';
 
 import '../layouts/login_layout.dart';
 import '../painters/notebook_painter.dart';
@@ -9,9 +10,10 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final Size size = MediaQuery.sizeOf(context);
+    final currentScaffold = ref.watch(scaffoldScrimProvider);
     return Scaffold(
+      key: currentScaffold,
       body: SizedBox(
         width: size.width,
         height: size.height,
@@ -20,8 +22,10 @@ class LoginPage extends ConsumerWidget {
           child: CustomPaint(
             size: const Size(double.infinity, double.infinity),
             painter: NotebookPagePainter(),
-            child: const Center(
-              child: LoginMobileLayout(),
+            child: Center(
+              child: LoginMobileLayout(
+                currentScaffold: currentScaffold,
+              ),
             ),
           ),
         ),

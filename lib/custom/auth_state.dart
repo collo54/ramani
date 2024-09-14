@@ -31,22 +31,22 @@ class AuthState extends ConsumerWidget {
         ),
       ),
       data: (user) {
-        Future(() async {
-          final locationService = ref.watch(locationServiceProvider);
-          var isPermissionGranted = await locationService.checkPermission();
-          if (isPermissionGranted) {
-            final locationData = await locationService.getLocation();
-            if (locationData != null) {
-              var latlngHolder = LatLng(
-                locationData.latitude ?? -37.8136,
-                locationData.longitude ?? 144.9631,
-              );
-              ref
-                  .read(currentLocationProvider.notifier)
-                  .updateLatLng(latlngHolder);
-            }
-          }
-        });
+        // Future(() async {
+        //   final locationService = ref.watch(locationServiceProvider);
+        //   var isPermissionGranted = await locationService.checkPermission();
+        //   if (isPermissionGranted) {
+        //     final locationData = await locationService.getLocation();
+        //     if (locationData != null) {
+        //       var latlngHolder = LatLng(
+        //         locationData.latitude ?? -37.8136,
+        //         locationData.longitude ?? 144.9631,
+        //       );
+        //       ref
+        //           .read(currentLocationProvider.notifier)
+        //           .updateLatLng(latlngHolder);
+        //     }
+        //   }
+        // });
         if (user != null) {
           Future(() {
             ref.read(userModelProvider.notifier).updateUserModel(user);

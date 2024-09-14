@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ramanirides/providers/markers_provider.dart';
@@ -23,6 +24,11 @@ final currentLocationProvider =
 final locationServiceProvider = Provider((ref) {
   final locationSercive = LocationService();
   return locationSercive;
+});
+
+final scaffoldScrimProvider = Provider((ref) {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  return scaffoldKey;
 });
 
 final userModelProvider =
