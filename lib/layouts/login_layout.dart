@@ -40,20 +40,18 @@ class _LoginMobileLayoutState extends ConsumerState<LoginMobileLayout> {
     //     _mapStyle = string;
     //   });
     //  });
-   
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-                  widget.currentScaffold.currentState!.showBodyScrim(true, 0.6);
+      widget.currentScaffold.currentState!.showBodyScrim(true, 0.6);
       showDialog(
         context: context,
         builder: (BuildContext context) {
-            widget.currentScaffold.currentState!.showBodyScrim(true, 0.6);
+          widget.currentScaffold.currentState!.showBodyScrim(true, 0.6);
           return const LocationDisclosureDialog();
         },
       );
     });
   }
-
-
 
   @override
   void dispose() {
@@ -134,267 +132,259 @@ class _LoginMobileLayoutState extends ConsumerState<LoginMobileLayout> {
     return SizedBox(
       //height: 600,
       width: size.width - 40,
-      child: ListView(
-        children: [
-          // PointerInterceptor(
-          //   child: GoogleMap(
-          //     onMapCreated: _onMapCreated,
-          //     initialCameraPosition: CameraPosition(
-          //       target: _center,
-          //       zoom: 11.0,
-          //     ),
-          //   ),
-          // ),
-          Center(
-            child: Container(
-              // width: size.width / 3,
-              height: (size.height / 4 * 3) + 90,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(
-                  color: kblack00005,
-                  width: 1,
+      child: Center(
+        child: Container(
+          // width: size.width / 3,
+          height: (size.height / 4 * 3) + 60,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color: kblack00005,
+              width: 1,
+            ),
+          ),
+
+          padding: const EdgeInsets.all(5),
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.max,
+            children: [
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                'RamaniRide',
+                style: GoogleFonts.poppins(
+                  textStyle: const TextStyle(
+                    color: kblue9813424010,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-
-              padding: const EdgeInsets.all(5),
-              child: ListView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisSize: MainAxisSize.max,
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                'Ready to go',
+                style: GoogleFonts.inter(
+                  textStyle: const TextStyle(
+                    height: 1.56,
+                    color: kblackgrey79797907,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              OutlinedButton(
+                onPressed: () async {
+                  // await _loginGoogle();
+                  await _auth.signInAnonymously();
+                },
+                style: OutlinedButton.styleFrom(
+                  fixedSize: const Size(248, 45),
+                  side: const BorderSide(
+                    width: 2,
+                    color: kblackgrey79797910,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const HugeIcon(
+                      icon: HugeIcons.strokeRoundedAnonymous,
+                      color: kblack00008,
+                      size: 24.0,
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      "Sign in anonymously",
+                      style: GoogleFonts.inter(
+                        textStyle: const TextStyle(
+                          height: 1.56,
+                          color: kblackgrey79797910,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    'RamaniRide',
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        color: kblue9813424010,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    width: 99,
+                    height: 2,
+                    child: Divider(
+                      height: 1,
+                      color: kblackgrey79797903,
                     ),
                   ),
                   const SizedBox(
-                    height: 8,
+                    width: 17,
                   ),
                   Text(
-                    'Ready to go',
-                    style: GoogleFonts.inter(
+                    'or',
+                    style: GoogleFonts.poppins(
                       textStyle: const TextStyle(
-                        height: 1.56,
-                        color: kblackgrey79797907,
-                        fontSize: 16,
+                        color: kblackgrey79797910,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
-                  ),
-                  OutlinedButton(
-                    onPressed: () async {
-                      // await _loginGoogle();
-                      await _auth.signInAnonymously();
-                    },
-                    style: OutlinedButton.styleFrom(
-                      fixedSize: const Size(248, 45),
-                      side: const BorderSide(
-                        width: 2,
-                        color: kblackgrey79797910,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const HugeIcon(
-                          icon: HugeIcons.strokeRoundedAnonymous,
-                          color: kblack00008,
-                          size: 24.0,
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Text(
-                          "Sign in anonymously",
-                          style: GoogleFonts.inter(
-                            textStyle: const TextStyle(
-                              height: 1.56,
-                              color: kblackgrey79797910,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    width: 17,
                   ),
                   const SizedBox(
-                    height: 15,
+                    width: 99,
+                    height: 2,
+                    child: Divider(
+                      height: 1,
+                      color: kblackgrey79797903,
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        width: 99,
-                        height: 2,
-                        child: Divider(
-                          height: 1,
-                          color: kblackgrey79797903,
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                width: 248,
+                child: _buildForm(),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              MaterialButton(
+                onPressed: () async {
+                  await _logInEmail();
+                },
+                color: kblue9813424010,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                ),
+                height: 55,
+                minWidth: 248,
+                child: Text(
+                  primaryText,
+                  style: GoogleFonts.inter(
+                    textStyle: const TextStyle(
+                      color: kwhite25525525510,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              TextButton(
+                onPressed: () async {
+                  _toogleFormType();
+                },
+                style: TextButton.styleFrom(
+                  minimumSize: const Size(248, 55),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10.0),
+                    ),
+                  ),
+                  foregroundColor: kblue9813424010,
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  side: const BorderSide(
+                    color: kblue9813424010,
+                    width: 2,
+                  ),
+                ),
+                child: Text(
+                  secondaryText,
+                  style: GoogleFonts.inter(
+                    textStyle: const TextStyle(
+                      color: kblue9813424010,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              RichText(
+                text: TextSpan(
+                  text: 'By tapping "log in" you accept our ',
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                      color: kblack00005,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'privacy policy',
+                      recognizer: _onTapRecognizer,
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          color: kblue12915824210,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const SizedBox(
-                        width: 17,
-                      ),
-                      Text(
-                        'or',
+                    ),
+                    /*
+                      TextSpan(
+                        text: '\nand',
                         style: GoogleFonts.poppins(
                           textStyle: const TextStyle(
-                            color: kblackgrey79797910,
+                            color: kblackgrey48484810,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' conditions ',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
+                            color: kpurple1215720310,
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 17,
-                      ),
-                      const SizedBox(
-                        width: 99,
-                        height: 2,
-                        child: Divider(
-                          height: 1,
-                          color: kblackgrey79797903,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  SizedBox(
-                    width: 248,
-                    child: _buildForm(),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  MaterialButton(
-                    onPressed: () async {
-                      await _logInEmail();
-                    },
-                    color: kblue9813424010,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                    ),
-                    height: 55,
-                    minWidth: 248,
-                    child: Text(
-                      primaryText,
-                      style: GoogleFonts.inter(
-                        textStyle: const TextStyle(
-                          color: kwhite25525525510,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      _toogleFormType();
-                    },
-                    style: TextButton.styleFrom(
-                      foregroundColor: kblue9813424010,
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      side: const BorderSide(
-                        color: kblue9813424010,
-                        width: 2,
-                      ),
-                    ),
-                    child: Text(
-                      secondaryText,
-                      style: GoogleFonts.inter(
-                        textStyle: const TextStyle(
-                          color: kblue9813424010,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 7,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: 'By tapping "log in" you accept our ',
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          color: kblack00005,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'privacy policy',
-                          recognizer: _onTapRecognizer,
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              color: kblue12915824210,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        /*
-                          TextSpan(
-                            text: '\nand',
-                            style: GoogleFonts.poppins(
-                              textStyle: const TextStyle(
-                                color: kblackgrey48484810,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                          TextSpan(
-                            text: ' conditions ',
-                            style: GoogleFonts.poppins(
-                              textStyle: const TextStyle(
-                                color: kpurple1215720310,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          */
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ],
+                      */
+                  ],
+                ),
               ),
-            ),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
