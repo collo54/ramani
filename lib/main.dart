@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ramanirides/custom/home_scaffold.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
@@ -37,20 +36,22 @@ Future<void> _configureSDK() async {
   // Enable debug logs before calling `configure`.
   await Purchases.setLogLevel(LogLevel.debug);
 
-  var webPurchaseConfig = PurchasesConfiguration(webConfigurationKey);
-  var androidPurchaseConfig = PurchasesConfiguration(androidConfigurationKey);
-  var iosPurchaseConfig = PurchasesConfiguration(iosConfigurationKey);
-
   if (kIsWeb) {
+    var webPurchaseConfig = PurchasesConfiguration(webConfigurationKey);
     return await Purchases.configure(webPurchaseConfig);
   }
   switch (defaultTargetPlatform) {
     case TargetPlatform.android:
+      var androidPurchaseConfig =
+          PurchasesConfiguration(androidConfigurationKey);
       return await Purchases.configure(androidPurchaseConfig);
     case TargetPlatform.iOS:
+      var iosPurchaseConfig = PurchasesConfiguration(iosConfigurationKey);
       return await Purchases.configure(iosPurchaseConfig);
 
     default:
+      var androidPurchaseConfig =
+          PurchasesConfiguration(androidConfigurationKey);
       return await Purchases.configure(androidPurchaseConfig);
   }
 }

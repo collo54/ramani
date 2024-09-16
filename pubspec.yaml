@@ -52,6 +52,7 @@ dependencies:
   location: ^7.0.0
   webview_flutter: ^4.2.4
   purchases_ui_flutter: ^8.1.1
+  purchases_flutter: ^8.1.1
 
 dev_dependencies:
   flutter_test:
