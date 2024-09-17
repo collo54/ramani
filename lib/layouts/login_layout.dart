@@ -395,7 +395,7 @@ class _LoginMobileLayoutState extends ConsumerState<LoginMobileLayout> {
       MaterialPageRoute(
         builder: (context) => const WebViewApp(
           uri:
-              'https://www.termsfeed.com/live/c66bd66c-27c1-468b-9ed2-d3543d3370a9',
+              'https://www.termsfeed.com/live/9d18bc24-93ed-44b4-8296-6d6bff1a71f2',
         ),
       ),
     );
