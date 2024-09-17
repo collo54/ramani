@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:location/location.dart';
-import 'package:ramanirides/constants/colors.dart';
-import 'package:ramanirides/custom/asset_string.dart';
+import 'package:ramaniride/constants/colors.dart';
+import 'package:ramaniride/custom/asset_string.dart';
 
 import '../painters/notebook_painter.dart';
 import '../providers/providers.dart';

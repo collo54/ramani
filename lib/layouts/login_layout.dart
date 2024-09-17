@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:ramanirides/widgets/location_disclosure_dialog.dart';
+import 'package:ramaniride/widgets/location_disclosure_dialog.dart';
 
 import '../constants/colors.dart';
 import '../models/user_model.dart';

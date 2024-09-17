@@ -1,6 +1,6 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:location/location.dart';
-import 'package:ramanirides/constants/colors.dart';
+import 'package:ramaniride/constants/colors.dart';
 
 class LocationService {
   Location location = Location();

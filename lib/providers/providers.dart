@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ramanirides/providers/markers_provider.dart';
-import 'package:ramanirides/services/location_service.dart';
+import 'package:ramaniride/providers/markers_provider.dart';
+import 'package:ramaniride/services/location_service.dart';
 
 import '../models/user_model.dart';
 import '../services/auth_service.dart';

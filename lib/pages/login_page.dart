@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ramanirides/providers/providers.dart';
+import 'package:ramaniride/providers/providers.dart';
 
 import '../layouts/login_layout.dart';
 import '../painters/notebook_painter.dart';
