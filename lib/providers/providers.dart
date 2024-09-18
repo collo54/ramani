@@ -6,6 +6,7 @@ import 'package:ramaniride/services/location_service.dart';
 
 import '../models/user_model.dart';
 import '../services/auth_service.dart';
+import '../services/purchases_service.dart';
 import 'current_location_provider.dart';
 import 'page_index.dart';
 import 'previous_page_index.dart';
@@ -24,6 +25,11 @@ final currentLocationProvider =
 final locationServiceProvider = Provider((ref) {
   final locationSercive = LocationService();
   return locationSercive;
+});
+
+final purchaseServiceProvider = Provider((ref) {
+  final purchaseSercive = PurchasesService();
+  return purchaseSercive;
 });
 
 final scaffoldScrimProvider = Provider((ref) {

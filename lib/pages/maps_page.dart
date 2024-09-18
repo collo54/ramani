@@ -28,6 +28,7 @@ class MapsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.sizeOf(context);
     final currentTab = ref.watch(pageIndexProvider);
+    final purchaseService = ref.watch(purchaseServiceProvider);
     var markers = ref.watch(markerProvider);
     var currentLoc = ref.watch(currentLocationProvider);
     ref.watch(locationServiceProvider);
@@ -88,6 +89,7 @@ class MapsPage extends ConsumerWidget {
                 foregroundColor: kblack15161810,
                 backgroundColor: kwhite25525525510,
                 onPressed: () async {
+                  await purchaseService.presentPaywallUI();
                   final assetMarkers = MarkersAssets();
                   const latlngHolder = LatLng(
                       -37.8136 - 0.5, 144.9631 - 0.5); //TODO dynamic latlng
