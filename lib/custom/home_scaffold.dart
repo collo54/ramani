@@ -18,6 +18,7 @@ class HomeScaffold extends ConsumerWidget {
     final Size size = MediaQuery.sizeOf(context);
     final currentTab = ref.watch(pageIndexProvider);
     ref.watch(previousPageIndexProvider);
+    final purchaseService = ref.watch(purchaseServiceProvider);
     return DefaultTabController(
       length: 3,
       initialIndex: currentTab,
@@ -34,9 +35,12 @@ class HomeScaffold extends ConsumerWidget {
           elevation: 4,
           color: kwhite25525525510,
           child: TabBar(
-            onTap: (value) {
+            onTap: (value) async {
               ref.read(pageIndexProvider.notifier).currentIndex(value);
               ref.read(previousPageIndexProvider.notifier).currentIndex(value);
+              if (value == 2) {
+                await purchaseService.presentPaywallUI();
+              }
             },
             indicatorSize: TabBarIndicatorSize.label,
             indicatorColor: kblue12915824210,
