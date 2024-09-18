@@ -117,7 +117,7 @@ class MapsPage extends ConsumerWidget {
             // ),
             Positioned(
               left: 10,
-              bottom: 100,
+              bottom: 10,
               child: FloatingActionButton(
                 foregroundColor: kblack15161810,
                 backgroundColor: kwhite25525525510,
