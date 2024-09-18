@@ -3,18 +3,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:uuid/uuid.dart';
 
 import '../constants/colors.dart';
 import '../custom/asset_string.dart';
 import '../providers/providers.dart';
 
-class IconMarkers extends ConsumerWidget {
+class SingleIconMarkers extends ConsumerWidget {
   final List<String> iconList;
+  final LatLng latlng;
   GoogleMapController mapController;
 
-  IconMarkers({
+  SingleIconMarkers({
     super.key,
     required this.iconList,
+    required this.latlng,
     required this.mapController,
   });
 
@@ -39,8 +42,8 @@ class IconMarkers extends ConsumerWidget {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () async {
-                await currentLocationCustomMarker(
-                    ref, context, iconList[index]);
+                await currentLocationCustomMarker(ref, context, iconList[index],
+                    getIconName(iconList[index]));
               },
               child: ListTile(
                 leading: Image.asset(
@@ -69,46 +72,33 @@ class IconMarkers extends ConsumerWidget {
     }
   }
 
-  Future<void> currentLocationCustomMarker(
-      WidgetRef ref, BuildContext context, pngString) async {
+  Future<void> currentLocationCustomMarker(WidgetRef ref, BuildContext context,
+      pngString, String infoWindowString) async {
     try {
-      final locationService = ref.watch(locationServiceProvider);
-      final locationData = await locationService.getLocation();
-      if (locationData != null) {
-        var latlngHolder =
-            LatLng(locationData.latitude ?? 0, locationData.longitude ?? 0);
-        final assetMarkers = MarkersAssets();
-        await assetMarkers
-            .singleCustomMarkers(
-          center: latlngHolder,
-          context: context,
-          pngString: pngString,
-        )
-            .then((value) {
-          ref.read(markerProvider.notifier).addMarkerSet(value);
-        });
-        mapController.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(
-              target: latlngHolder,
-              zoom: 15.0,
-              tilt: 20.0,
-            ),
+      var uuid = const Uuid();
+      final assetMarkers = MarkersAssets();
+      await assetMarkers
+          .newsingleCustomMarkers(
+        title: infoWindowString,
+        markerId: uuid.v1(),
+        center: latlng,
+        context: context,
+        pngString: pngString,
+      )
+          .then((value) {
+        ref.read(markerProvider.notifier).addMarkerSet(value);
+      });
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: latlng,
+            zoom: 15.0,
+            tilt: 20.0,
           ),
-        );
-        await Future.delayed(const Duration(milliseconds: 500));
-        Navigator.pop(context);
-      } else {
-        Fluttertoast.showToast(
-            msg:
-                "IconMarker class currentLocationCustomMarker method Exception: Null LocationData ",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: kred236575710,
-            textColor: kwhite25525525510,
-            fontSize: 16.0);
-      }
+        ),
+      );
+      await Future.delayed(const Duration(milliseconds: 500));
+      Navigator.pop(context);
     } on Exception catch (e) {
       Fluttertoast.showToast(
           msg:

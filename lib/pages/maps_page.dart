@@ -10,6 +10,7 @@ import 'package:ramaniride/custom/asset_string.dart';
 import '../painters/notebook_painter.dart';
 import '../providers/providers.dart';
 import '../widgets/icon_markers.dart';
+import '../widgets/single_icon_marker.dart';
 
 class MapsPage extends ConsumerWidget {
   MapsPage({super.key});
@@ -71,6 +72,16 @@ class MapsPage extends ConsumerWidget {
                 painter: NotebookPagePainter(),
                 child: GoogleMap(
                   onMapCreated: _onMapCreated,
+                  onLongPress: (latlang) async {
+                    showDialog(
+                      context: context,
+                      builder: (context) => SingleIconMarkers(
+                        iconList: MarkersAssets().customPngString,
+                        latlng: latlang,
+                        mapController: mapController,
+                      ),
+                    );
+                  },
                   myLocationButtonEnabled: true,
                   myLocationEnabled: true,
                   markers: markers,
@@ -82,28 +93,28 @@ class MapsPage extends ConsumerWidget {
                 ),
               ),
             ),
-            Positioned(
-              left: 10,
-              bottom: 10,
-              child: FloatingActionButton(
-                foregroundColor: kblack15161810,
-                backgroundColor: kwhite25525525510,
-                onPressed: () async {
-                  await purchaseService.presentPaywallUI();
-                  final assetMarkers = MarkersAssets();
-                  const latlngHolder = LatLng(
-                      -37.8136 - 0.5, 144.9631 - 0.5); //TODO dynamic latlng
-                  await assetMarkers
-                      .customMarkersTest(context, latlngHolder)
-                      .then((value) {
-                    ref.read(markerProvider.notifier).replaceSet(value);
-                  });
-                },
-                child: const HugeIcon(
-                    color: kpurple1215720310,
-                    icon: HugeIcons.strokeRoundedLocation09),
-              ),
-            ),
+            // Positioned(
+            //   left: 10,
+            //   bottom: 10,
+            //   child: FloatingActionButton(
+            //     foregroundColor: kblack15161810,
+            //     backgroundColor: kwhite25525525510,
+            //     onPressed: () async {
+            //       await purchaseService.presentPaywallUI();
+            //       final assetMarkers = MarkersAssets();
+            //       const latlngHolder = LatLng(
+            //           -37.8136 - 0.5, 144.9631 - 0.5); //TODO dynamic latlng
+            //       await assetMarkers
+            //           .customMarkersTest(context, latlngHolder)
+            //           .then((value) {
+            //         ref.read(markerProvider.notifier).replaceSet(value);
+            //       });
+            //     },
+            //     child: const HugeIcon(
+            //         color: kpurple1215720310,
+            //         icon: HugeIcons.strokeRoundedLocation09),
+            //   ),
+            // ),
             Positioned(
               left: 10,
               bottom: 100,
@@ -115,6 +126,7 @@ class MapsPage extends ConsumerWidget {
                     context: context,
                     builder: (context) => IconMarkers(
                       iconList: MarkersAssets().customPngString,
+                      mapController: mapController,
                     ),
                   );
                 },

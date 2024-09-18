@@ -69,6 +69,32 @@ class MarkersAssets {
     return listMarker;
   }
 
+  Future<Set<Marker>> newsingleCustomMarkers({
+    required BuildContext context,
+    required LatLng center,
+    required String pngString,
+    required String markerId,
+    required String title,
+  }) async {
+    var listMarker = <Marker>{};
+
+    ImageConfiguration imageConfiguration =
+        createLocalImageConfiguration(context); // ImageConfiguration();
+    BitmapDescriptor bitmapDescriptor =
+        await BitmapDescriptor.asset(imageConfiguration, pngString);
+    Marker marker = Marker(
+      markerId: MarkerId(markerId),
+      infoWindow: InfoWindow(
+        title: title,
+      ),
+      position: center,
+      icon: bitmapDescriptor,
+    );
+    listMarker.add(marker);
+
+    return listMarker;
+  }
+
   //   final Map<String, Marker> _markers = {};
   // Future<void> _onMapCreatedTest(GoogleMapController controller) async {
   //   final googleOffices = await locations.getGoogleOffices();

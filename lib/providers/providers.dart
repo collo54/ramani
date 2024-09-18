@@ -6,6 +6,8 @@ import 'package:ramaniride/services/location_service.dart';
 
 import '../models/user_model.dart';
 import '../services/auth_service.dart';
+import '../services/firebase_storage_service.dart';
+import '../services/firestore_service.dart';
 import '../services/purchases_service.dart';
 import 'current_location_provider.dart';
 import 'page_index.dart';
@@ -43,3 +45,15 @@ final userModelProvider =
 
 /// creates a provider for AuthService class
 final authenticate = Provider((ref) => AuthService());
+
+/// creates a provider for Firestore service class
+final cloudFirestoreServiceProvider = Provider((ref) {
+  final usermodel = ref.watch(userModelProvider);
+  return FirestoreService(uid: usermodel.uid);
+});
+
+/// creates a provider for Firestore service class
+final firebaseStorageServiceProvider = Provider((ref) {
+  final usermodel = ref.watch(userModelProvider);
+  return FirebaseStorageService(uid: usermodel.uid);
+});
