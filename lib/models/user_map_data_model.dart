@@ -1,10 +1,11 @@
 import 'latlng_model.dart';
+import 'marker_meta_data.dart';
 
 class UserMapDataModel {
   final String id;
   final String userId;
   final LatLangModel latlangModel;
-  // final PlantDiseaseResponseModel plantDiseaseResponse;
+  final MarkerMetaData markerMetaData;
   final String? timeStamp;
   final List<String> urls;
 
@@ -12,7 +13,8 @@ class UserMapDataModel {
     required this.id,
     required this.userId,
     required this.latlangModel,
-    //  required this.plantDiseaseResponse,
+    
+  required this.markerMetaData,
     required this.timeStamp,
     required this.urls,
   });
@@ -22,8 +24,8 @@ class UserMapDataModel {
       id: id,
       userId: json['userId'] ?? '',
       latlangModel: LatLangModel.fromJson(json['latlangModel'] ?? {}),
-      // plantDiseaseResponse: PlantDiseaseResponseModel.fromJson(
-      //     json['plantDiseaseResponse'] ?? {}),
+       markerMetaData: MarkerMetaData.fromJson(
+           json['markerMetaData'] ?? {}),
       timeStamp: json['timeStamp'] ?? '',
       urls: List<String>.from(json['urls'] ?? []),
     );
@@ -33,7 +35,7 @@ class UserMapDataModel {
     return {
       'userId': userId,
       'latlangModel': latlangModel.toJson(),
-      // 'plantDiseaseResponse': plantDiseaseResponse.toJson(),
+      'markerMetaData': markerMetaData.toJson(),
       'timeStamp': timeStamp,
       'urls': urls,
     };

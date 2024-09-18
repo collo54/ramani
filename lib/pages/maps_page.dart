@@ -6,6 +6,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:location/location.dart';
 import 'package:ramaniride/constants/colors.dart';
 import 'package:ramaniride/custom/asset_string.dart';
+import 'package:ramaniride/widgets/create_marker_bottomsheet.dart';
 
 import '../painters/notebook_painter.dart';
 import '../providers/providers.dart';
@@ -73,14 +74,22 @@ class MapsPage extends ConsumerWidget {
                 child: GoogleMap(
                   onMapCreated: _onMapCreated,
                   onLongPress: (latlang) async {
-                    showDialog(
+                    showBottomSheet(
                       context: context,
-                      builder: (context) => SingleIconMarkers(
+                      builder: (context) => CreateMarkerBottomsheet(
                         iconList: MarkersAssets().customPngString,
                         latlng: latlang,
                         mapController: mapController,
                       ),
                     );
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (context) => SingleIconMarkers(
+                    //     iconList: MarkersAssets().customPngString,
+                    //     latlng: latlang,
+                    //     mapController: mapController,
+                    //   ),
+                    // );
                   },
                   myLocationButtonEnabled: true,
                   myLocationEnabled: true,
@@ -117,7 +126,7 @@ class MapsPage extends ConsumerWidget {
             // ),
             Positioned(
               left: 10,
-              bottom: 10,
+              bottom: 30,
               child: FloatingActionButton(
                 foregroundColor: kblack15161810,
                 backgroundColor: kwhite25525525510,
