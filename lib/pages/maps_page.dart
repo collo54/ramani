@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -74,14 +75,25 @@ class MapsPage extends ConsumerWidget {
                 child: GoogleMap(
                   onMapCreated: _onMapCreated,
                   onLongPress: (latlang) async {
-                    showBottomSheet(
-                      context: context,
-                      builder: (context) => CreateMarkerBottomsheet(
-                        iconList: MarkersAssets().customPngString,
-                        latlng: latlang,
-                        mapController: mapController,
-                      ),
-                    );
+                    try {
+                      showBottomSheet(
+                        context: context,
+                        builder: (context) => CreateMarkerBottomsheet(
+                          iconList: MarkersAssets().customPngString,
+                          latlng: latlang,
+                          mapController: mapController,
+                        ),
+                      );
+                    } on Exception catch (e) {
+                      Fluttertoast.showToast(
+                          msg: "Error creating marker: $e",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.redAccent,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                    }
                     // showDialog(
                     //   context: context,
                     //   builder: (context) => SingleIconMarkers(

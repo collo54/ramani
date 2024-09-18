@@ -23,7 +23,7 @@ class HomePage extends ConsumerWidget {
         backgroundColor: kwhite25525525510,
         surfaceTintColor: kwhite25525525510,
         title: Text(
-          '#private channel',
+          '#Private channel',
           style: GoogleFonts.poppins(
             textStyle: Theme.of(context).textTheme.headlineMedium,
             fontSize: 20,
