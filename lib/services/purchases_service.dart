@@ -9,8 +9,9 @@ class PurchasesService {
 
   Future<void> presentPaywallUI() async {
     try {
-      final paywallResult =
-          await RevenueCatUI.presentPaywallIfNeeded(entitlementId);
+      final paywallResult = await RevenueCatUI.presentPaywallIfNeeded(
+          entitlementId,
+          displayCloseButton: true);
       debugPrint("paywall result: $paywallResult");
     } on Exception catch (e) {
       Fluttertoast.showToast(

@@ -11,24 +11,42 @@ import 'package:ramaniride/widgets/create_marker_bottomsheet.dart';
 
 import '../painters/notebook_painter.dart';
 import '../providers/providers.dart';
+import '../widgets/create_mylocation_marker.dart';
 import '../widgets/icon_markers.dart';
 import '../widgets/single_icon_marker.dart';
 
-class MapsPage extends ConsumerWidget {
+class MapsPage extends ConsumerStatefulWidget {
   MapsPage({super.key});
 
+  @override
+  ConsumerState<MapsPage> createState() => _MapsPageState();
+}
+
+class _MapsPageState extends ConsumerState<MapsPage> {
   late GoogleMapController mapController;
 
   final LatLng _center = const LatLng(-37.8136, 144.9631);
 
-  void _onMapCreated(
-    GoogleMapController controller,
-  ) async {
-    mapController = controller;
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void dispose() {
+    super.dispose();
+  }
+
+  void _onMapCreated(
+    GoogleMapController controller,
+  ) async {
+    setState(() {
+      mapController = controller;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final Size size = MediaQuery.sizeOf(context);
     final currentTab = ref.watch(pageIndexProvider);
     final purchaseService = ref.watch(purchaseServiceProvider);
@@ -143,13 +161,31 @@ class MapsPage extends ConsumerWidget {
                 foregroundColor: kblack15161810,
                 backgroundColor: kwhite25525525510,
                 onPressed: () async {
-                  showDialog(
-                    context: context,
-                    builder: (context) => IconMarkers(
-                      iconList: MarkersAssets().customPngString,
-                      mapController: mapController,
-                    ),
-                  );
+                  try {
+                    showBottomSheet(
+                      context: context,
+                      builder: (context) => CreateMyLocationMarkerBottomsheet(
+                        iconList: MarkersAssets().customPngString,
+                        mapController: mapController,
+                      ),
+                    );
+                  } on Exception catch (e) {
+                    Fluttertoast.showToast(
+                        msg: "Error creating marker: $e",
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.redAccent,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  }
+                  // showDialog(
+                  //   context: context,
+                  //   builder: (context) => IconMarkers(
+                  //     iconList: MarkersAssets().customPngString,
+                  //     mapController: mapController,
+                  //   ),
+                  // );
                 },
                 child: const HugeIcon(
                   color: kpurple1215720310,

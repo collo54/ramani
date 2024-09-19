@@ -102,14 +102,18 @@ class HomeDataWidget extends ConsumerWidget {
                             width: 2,
                           ),
                         ),
-                        IconButton(
-                          icon: const HugeIcon(
-                            icon: HugeIcons.strokeRoundedMore01,
-                            color: kblack00008,
-                            size: 24.0,
-                          ),
-                          onPressed: () {},
+                        const SizedBox(
+                          width: 24,
+                          height: 24,
                         ),
+                        // IconButton(
+                        //   icon: const HugeIcon(
+                        //     icon: HugeIcons.strokeRoundedMore01,
+                        //     color: kblack00008,
+                        //     size: 24.0,
+                        //   ),
+                        //   onPressed: () {},
+                        // ),
                       ],
                     ),
                   ),

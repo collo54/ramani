@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location_platform_interface/location_platform_interface.dart';
 import 'package:uuid/uuid.dart';
 
 import '../constants/colors.dart';
@@ -14,25 +15,25 @@ import '../models/marker_meta_data.dart';
 import '../models/user_map_data_model.dart';
 import '../providers/providers.dart';
 
-class CreateMarkerBottomsheet extends ConsumerStatefulWidget {
+class CreateMyLocationMarkerBottomsheet extends ConsumerStatefulWidget {
   final List<String> iconList;
-  final LatLng latlng;
+  //final LatLng latlng;
   late GoogleMapController? mapController;
 
-  CreateMarkerBottomsheet({
+  CreateMyLocationMarkerBottomsheet({
     super.key,
     required this.iconList,
-    required this.latlng,
+    // required this.latlng,
     required this.mapController,
   });
 
   @override
-  ConsumerState<CreateMarkerBottomsheet> createState() =>
-      _CreateMarkerBottomsheetState();
+  ConsumerState<CreateMyLocationMarkerBottomsheet> createState() =>
+      _CreateMyLocationMarkerBottomsheetState();
 }
 
-class _CreateMarkerBottomsheetState
-    extends ConsumerState<CreateMarkerBottomsheet> {
+class _CreateMyLocationMarkerBottomsheetState
+    extends ConsumerState<CreateMyLocationMarkerBottomsheet> {
   final _formKey = GlobalKey<FormState>();
   String? _title;
   String? _description;
@@ -215,32 +216,46 @@ class _CreateMarkerBottomsheetState
     }
   }
 
-  Future<void> currentLocationCustomMarker(
-      WidgetRef ref, String infoWindowString) async {
+  Future<void> currentLocationCustomMarker(WidgetRef ref,
+      String infoWindowString, LocationData? locationData) async {
     try {
-      final assetMarkers = MarkersAssets();
-      await assetMarkers
-          .newsingleCustomMarkers(
-        title: _title ?? infoWindowString,
-        markerId: _markerId!,
-        center: widget.latlng,
-        context: context,
-        pngString: _assetString!,
-      )
-          .then((value) {
-        ref.read(markerProvider.notifier).addMarkerSet(value);
-      });
-      widget.mapController?.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target: widget.latlng,
-            zoom: 15.0,
-            tilt: 20.0,
+      if (locationData != null) {
+        var latlngHolder =
+            LatLng(locationData.latitude ?? 0, locationData.longitude ?? 0);
+        final assetMarkers = MarkersAssets();
+        await assetMarkers
+            .newsingleCustomMarkers(
+          title: _title ?? infoWindowString,
+          markerId: _markerId!,
+          center: latlngHolder,
+          context: context,
+          pngString: _assetString!,
+        )
+            .then((value) {
+          ref.read(markerProvider.notifier).addMarkerSet(value);
+        });
+        widget.mapController?.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+              target: latlngHolder,
+              zoom: 15.0,
+              tilt: 20.0,
+            ),
           ),
-        ),
-      );
-      await Future.delayed(const Duration(milliseconds: 500));
-      Navigator.pop(context);
+        );
+        await Future.delayed(const Duration(milliseconds: 500));
+        Navigator.pop(context);
+      } else {
+        Fluttertoast.showToast(
+            msg:
+                "currentLocationCustomMarker method Exception: Null LocationData ",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: kred236575710,
+            textColor: kwhite25525525510,
+            fontSize: 16.0);
+      }
     } on Exception catch (e) {
       Fluttertoast.showToast(
           msg: "CreateMarker class CustomMarker method Exception: $e",
@@ -253,15 +268,28 @@ class _CreateMarkerBottomsheetState
     }
   }
 
+  Future<LocationData?> getLatLang(WidgetRef ref) async {
+    final locationService = ref.watch(locationServiceProvider);
+    final locationData = await locationService.getLocation();
+    return locationData;
+  }
+
   Future<void> _saveToFirestore(WidgetRef ref) async {
-    if (_validateAndSaveForm() && _assetString != null && _markerId != null) {
+    LocationData? locationData = await getLatLang(ref);
+
+    if (_validateAndSaveForm() &&
+        _assetString != null &&
+        _markerId != null &&
+        locationData != null) {
       try {
         List<String> urls = [];
         final userModel = ref.watch(userModelProvider);
 
+        var latlngHolder =
+            LatLng(locationData.latitude ?? 0, locationData.longitude ?? 0);
         final latlangModel = LatLangModel(
-          lat: widget.latlng.latitude,
-          lang: widget.latlng.longitude,
+          lat: latlngHolder.latitude,
+          lang: latlngHolder.longitude,
         );
         final firestoreservice = ref.watch(cloudFirestoreServiceProvider);
 
@@ -282,6 +310,7 @@ class _CreateMarkerBottomsheetState
         await currentLocationCustomMarker(
           ref,
           _title!,
+          locationData,
         );
       } on Exception catch (e) {
         Fluttertoast.showToast(

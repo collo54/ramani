@@ -5,10 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants/colors.dart';
 
 class InstructionsWidget extends ConsumerWidget {
-  const InstructionsWidget({required this.title, required this.description, super.key,});
+  const InstructionsWidget({
+    required this.title,
+    required this.description,
+    super.key,
+  });
   final String title;
   final String description;
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +20,7 @@ class InstructionsWidget extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Container(
         width: size.width - 40,
-        height: 200,
+        height: 240,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
@@ -47,7 +50,8 @@ class InstructionsWidget extends ConsumerWidget {
                   bottom: 4,
                 ),
                 child: Text(
-                  title, 
+                  title,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.poppins(
                     textStyle: Theme.of(context).textTheme.headlineSmall,
                     fontSize: 16,
@@ -65,7 +69,7 @@ class InstructionsWidget extends ConsumerWidget {
                   bottom: 4,
                 ),
                 child: Text(
-                  description, 
+                  description,
                   style: GoogleFonts.poppins(
                     textStyle: Theme.of(context).textTheme.bodyMedium,
                     fontSize: 16,

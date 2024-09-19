@@ -25,23 +25,23 @@ class HomePage extends ConsumerWidget {
         title: Text(
           '#Private channel',
           style: GoogleFonts.poppins(
-            textStyle: Theme.of(context).textTheme.headlineMedium,
-            fontSize: 20,
-            color: kblack00008,
-            fontWeight: FontWeight.w500,
-            fontStyle: FontStyle.normal,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () async {},
-            icon: const HugeIcon(
-              icon: HugeIcons.strokeRoundedAdd01,
+            textStyle: const TextStyle(
               color: kblack00008,
-              size: 24.0,
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
             ),
           ),
-        ],
+        ),
+        // actions: [
+        //   IconButton(
+        //     onPressed: () async {},
+        //     icon: const HugeIcon(
+        //       icon: HugeIcons.strokeRoundedAdd01,
+        //       color: kblack00008,
+        //       size: 24.0,
+        //     ),
+        //   ),
+        // ],
       ),
       body: SizedBox(
         width: size.width,
