@@ -19,54 +19,58 @@ class HomeScaffold extends ConsumerWidget {
     final currentTab = ref.watch(pageIndexProvider);
     ref.watch(previousPageIndexProvider);
     final purchaseService = ref.watch(purchaseServiceProvider);
-    return DefaultTabController(
-      length: 3,
-      initialIndex: currentTab,
-      child: Scaffold(
-        body: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            MapsPage(),
-            HomePage(),
-            CheckoutPage(),
-          ],
-        ),
-        bottomNavigationBar: Card(
-          elevation: 4,
-          color: kwhite25525525510,
-          child: TabBar(
-            onTap: (value) async {
-              ref.read(pageIndexProvider.notifier).currentIndex(value);
-              ref.read(previousPageIndexProvider.notifier).currentIndex(value);
-              if (value == 2) {
-                await purchaseService.presentPaywallUI();
-              }
-            },
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: kblue12915824210,
-            tabs: [
-              Tab(
-                icon: HugeIcon(
-                  icon: HugeIcons.strokeRoundedMapsLocation02,
-                  color: currentTab == 0 ? kblue12915824210 : kblack00005,
-                  size: 24.0,
-                ),
-              ),
-              Tab(
-                icon: HugeIcon(
-                  icon: HugeIcons.strokeRoundedSearchArea,
-                  color: currentTab == 1 ? kblue12915824210 : kblack00005,
-                  size: 24.0,
-                ),
-              ),
-              Tab(
-                icon: HugeIcon(
-                  icon: HugeIcons.strokeRoundedPayment02,
-                  color: currentTab == 2 ? kblue12915824210 : kblack00005,
-                  size: 24.0,
-                ),
-              ),
+    return SafeArea(
+      child: DefaultTabController(
+        length: 3,
+        initialIndex: currentTab,
+        child: Scaffold(
+          body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              MapsPage(),
+              HomePage(),
+              CheckoutPage(),
             ],
+          ),
+          bottomNavigationBar: Card(
+            elevation: 4,
+            color: kwhite25525525510,
+            child: TabBar(
+              onTap: (value) async {
+                ref.read(pageIndexProvider.notifier).currentIndex(value);
+                ref
+                    .read(previousPageIndexProvider.notifier)
+                    .currentIndex(value);
+                if (value == 2) {
+                  await purchaseService.presentPaywallUI();
+                }
+              },
+              indicatorSize: TabBarIndicatorSize.label,
+              indicatorColor: kblue12915824210,
+              tabs: [
+                Tab(
+                  icon: HugeIcon(
+                    icon: HugeIcons.strokeRoundedMapsLocation02,
+                    color: currentTab == 0 ? kblue12915824210 : kblack00005,
+                    size: 24.0,
+                  ),
+                ),
+                Tab(
+                  icon: HugeIcon(
+                    icon: HugeIcons.strokeRoundedSearchArea,
+                    color: currentTab == 1 ? kblue12915824210 : kblack00005,
+                    size: 24.0,
+                  ),
+                ),
+                Tab(
+                  icon: HugeIcon(
+                    icon: HugeIcons.strokeRoundedPayment02,
+                    color: currentTab == 2 ? kblue12915824210 : kblack00005,
+                    size: 24.0,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
